@@ -1,4 +1,5 @@
 import { PRIVATE_API_URL } from '$env/static/private';
+import { accessToken } from '$lib/auth';
 
 export const POST = async ({ request }) => {
     const { email, password } = await request.json();
@@ -19,6 +20,10 @@ export const POST = async ({ request }) => {
             status: response.status
         });
     }
+
+    const data = await response.json();
+    const access_token = data.access;
+    accessToken.set(access_token)
 
     // Forward the cookie to the browser
     return new Response(
