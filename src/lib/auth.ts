@@ -63,6 +63,8 @@ export async function refreshToken(): Promise<boolean> {
         const data = await response.json();
         authStore.setToken(data.access);
 
+        console.log('Token refreshed successfully');
+
         return true;
     } catch (error) {
         console.error('Token refresh error:', error);

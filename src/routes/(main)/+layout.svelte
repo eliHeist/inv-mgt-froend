@@ -27,6 +27,25 @@
                         <span class="flex-1 font-semibold">{user?.company.name}</span>
                     </div>
                 </Sidebar.Header>
+                <Sidebar.Content>
+                    <Sidebar.Group>
+                        <Sidebar.GroupContent>
+                            <Sidebar.Menu>
+                            <!-- {#each items as item (item.title)}
+                                <Sidebar.MenuItem>
+                                    <Sidebar.MenuButton>
+                                        {#snippet child({ props })}
+                                        <a href={item.url} {...props}>
+                                            <span>{item.title}</span>
+                                        </a>
+                                        {/snippet}
+                                    </Sidebar.MenuButton>
+                                </Sidebar.MenuItem>
+                            {/each} -->
+                            </Sidebar.Menu>
+                        </Sidebar.GroupContent>
+                    </Sidebar.Group>
+                </Sidebar.Content>
 			</Sidebar.Root>
 			<Sidebar.Inset class="h-screen">
 				<header class="flex h-12 items-center justify-between px-4">

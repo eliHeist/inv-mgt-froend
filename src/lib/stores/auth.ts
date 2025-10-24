@@ -1,14 +1,7 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-interface User {
-    id: number;
-    email: string;
-    first_name: string;
-    last_name: string;
-    is_company_admin: boolean;
-    [key: string]: any;
-}
+
 
 interface AuthState {
     token: string | null;
@@ -32,10 +25,10 @@ function createAuthStore() {
 
     return {
         subscribe,
-        setAuth: (token: string, user: User) => {
+        setAuth: (token: string, user: App.User) => {
             set({ token, user });
         },
-        setUser: (user: User) => {
+        setUser: (user: App.User) => {
             update((state) => ({ ...state, user }));
         },
         setToken: (token: string) => {
@@ -51,8 +44,8 @@ function createAuthStore() {
             })();
             return token;
         },
-        getUser: (): User | null => {
-            let user: User | null = null;
+        getUser: (): App.User | null => {
+            let user: App.User | null = null;
             subscribe((state) => {
                 user = state.user;
             })();

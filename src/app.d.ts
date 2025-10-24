@@ -38,13 +38,17 @@ declare global {
         }
 
         interface User {
-            c_groups: Group[];
-            user_permissions: UserPermission[];
-            company: Company;
-            accessible_branches: Branch[];
-            profile: Profile;
+            id: number;
             email: string;
+            first_name: string;
+            last_name: string;
             is_company_admin: boolean;
+            c_groups: any[]; // Add the missing property
+            user_permissions: any[]; // Add the missing property
+            company: any; // Add the missing property
+            accessible_branches: any[]; // Add the missing property
+            profile: any; // Add the missing property
+            [key: string]: any;
         }
         // interface Error {}
         // interface Locals {}
