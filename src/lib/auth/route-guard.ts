@@ -1,12 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { authStore } from '$lib/stores/auth';
-import { hasPermission, hasAnyPermission, isAdmin } from '$lib/auth/permissions';
+import { hasPermission, hasAnyPermission, isAdmin, isCompanyAdmin } from '$lib/auth/permissions';
 
 interface GuardOptions {
     permissions?: string[];
     any?: boolean;              // allow any of the listed permissions
     adminOnly?: boolean;        // restrict to admin_access only
+    sudoOnly?: boolean;        // restrict to admin_access only
     allowAdminOverride?: boolean; // allow admin_access to bypass permission checks
     redirectTo?: string;
 }
@@ -16,6 +17,7 @@ export async function guard(options: GuardOptions = {}) {
         permissions = [],
         any = false,
         adminOnly = false,
+        sudoOnly = false,
         allowAdminOverride = false,
         redirectTo = '/auth/login'
     } = options;
@@ -27,9 +29,15 @@ export async function guard(options: GuardOptions = {}) {
     }
 
     const admin = isAdmin();
+    const companyAdmin = isCompanyAdmin();
 
     // Admin-only routes
     if (adminOnly && !admin) {
+        throw redirect(302, '/unauthorized');
+    }
+
+    // Sudo-only routes
+    if (sudoOnly && !companyAdmin) {
         throw redirect(302, '/unauthorized');
     }
 

@@ -33,5 +33,10 @@ export function hasAllPermissions(codes: Permission[]): boolean {
 
 export function isAdmin(): boolean {
     const { user } = get(authStore);
-    return !!user?.profile?.admin_access;
+    return !!user?.is_company_admin || !!user?.profile?.admin_access;
+}
+
+export function isCompanyAdmin(): boolean {
+    const { user } = get(authStore);
+    return !!user?.is_company_admin;
 }
